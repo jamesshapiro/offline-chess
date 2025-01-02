@@ -7,6 +7,8 @@ import { DataContext } from '../DataProvider';
 import Board from '../Board';
 import MoveTable from '../MoveTable';
 
+import { motion, LayoutGroup } from 'framer-motion';
+
 function Body() {
   const { moveHistory } = React.useContext(DataContext);
   const toMove = moveHistory.length % 2 === 0 ? 'white' : 'black';
@@ -18,13 +20,32 @@ function Body() {
 
   return (
     <Content>
-      <ToMoveWrapper>{toMove}</ToMoveWrapper>
-      <FirstBoardWrapperComponent>
-        <Board boardId='1' initialOrientation='white' />
-      </FirstBoardWrapperComponent>
-      <SecondBoardWrapperComponent>
-        <Board boardId='2' initialOrientation='black' />
-      </SecondBoardWrapperComponent>
+      <ToMoveWrapper>1.0.2</ToMoveWrapper>
+      <LayoutGroup>
+        <motion.div
+          initial={{ flex: 60 }}
+          layoutId='firstboard'
+          layout={true}
+          animate={{ flex: toMove === 'white' ? 70 : 60 }}
+          transition={{ duration: 0.5 }}
+        >
+          <FirstBoardWrapperComponent>
+            <Board boardId='1' initialOrientation='white' />
+          </FirstBoardWrapperComponent>
+        </motion.div>
+        <motion.div
+          initial={{ flex: 70 }}
+          layoutId='secondboard'
+          layout={true}
+          animate={{ flex: toMove === 'black' ? 70 : 60 }}
+          transition={{ duration: 0.5 }}
+        >
+          <SecondBoardWrapperComponent>
+            <Board boardId='2' initialOrientation='black' />
+          </SecondBoardWrapperComponent>
+        </motion.div>
+      </LayoutGroup>
+
       <MoveTableWrapper>
         <MoveTable />
       </MoveTableWrapper>

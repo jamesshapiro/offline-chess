@@ -12,21 +12,13 @@ import { UserContext } from '../UserProvider';
 
 const ENDPOINT = process.env.REACT_APP_API_URL;
 
-function Board() {
-  const [chess] = React.useState(new Chess());
-  const [positionFen, setPositionFen] = React.useState(chess.fen());
+function Board({ initialOrientation }) {
   const [validateMove, setValidateMove] = React.useState(true);
   const [playMoveSound] = useSound(moveSound);
   const [playCaptureSound] = useSound(captureSound);
-  const [orientation, setOrientation] = React.useState('white');
+  const [orientation, setOrientation] = React.useState(initialOrientation);
   const [triggerFirstMove, setTriggerFirstMove] = React.useState(0);
   const [plans, setPlans] = React.useState([]);
-
-  const [lastStateBeforePlanning, setLastStateBeforePlanning] = React.useState({
-    lastFenBeforePlanning: chess.fen(),
-    lastMoveBeforePlanning: null,
-  });
-  const [nextCorrectMove, setNextCorrectMove] = React.useState(null);
 
   const {
     resetAll,
@@ -46,7 +38,16 @@ function Board() {
     setMoveHistory,
     selectedMove,
     setSelectedMove,
+    chess,
+    positionFen,
+    setPositionFen,
   } = React.useContext(DataContext);
+
+  const [lastStateBeforePlanning, setLastStateBeforePlanning] = React.useState({
+    lastFenBeforePlanning: chess.fen(),
+    lastMoveBeforePlanning: null,
+  });
+  const [nextCorrectMove, setNextCorrectMove] = React.useState(null);
   // const { token } = React.useContext(UserContext);
 
   React.useEffect(() => {
@@ -142,6 +143,6 @@ const Button = styled.button`
 `;
 
 const Div = styled.div`
-  margin-left: 37%;
-  width: 60%;
+  margin-left: 2%;
+  width: 90%;
 `;

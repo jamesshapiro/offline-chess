@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
+import { Chess } from 'chess.js';
 
 export const DataContext = React.createContext();
 
@@ -8,6 +9,8 @@ const ENDPOINT = process.env.REACT_APP_API_URL;
 
 function DataProvider({ children }) {
   const randomItem = 'random item';
+  const [chess] = React.useState(new Chess());
+  const [positionFen, setPositionFen] = React.useState(chess.fen());
   const [items, setItems] = React.useState([]);
   const [apiWasRequested, setApiWasRequested] = React.useState(true);
   const [requestWasHandled, setRequestWasHandled] = React.useState(false);
@@ -117,6 +120,9 @@ function DataProvider({ children }) {
         setMoveHistory,
         selectedMove,
         setSelectedMove,
+        chess,
+        positionFen,
+        setPositionFen,
       }}
     >
       {children}

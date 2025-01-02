@@ -16,10 +16,10 @@ function App() {
         <WakeLocker />
         <Content>
           <BoardWrapper>
-            <Board />
+            <Board initialOrientation='white' />
           </BoardWrapper>
           <BoardWrapper>
-            <Board />
+            <Board initialOrientation='black' />
           </BoardWrapper>
           <MoveTableWrapper>
             <MoveTable />

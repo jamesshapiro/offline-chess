@@ -23,6 +23,10 @@
     "predev": "rimraf .parcel-cache dist",
     "dev": "parcel public/index.html",
     "build": "parcel build public/index.html",
+    "build:upload-to-aws": "aws s3 sync dist s3://chess-offline.weakerpotions.com --delete --size-only && aws s3 cp dist/index.html s3://chess-offline.weakerpotions.com/index.html",
+    "build:invalidate-cf-cache": "aws cloudfront create-invalidation --distribution-id E242KUW2RSBDO7 --paths '/*' --no-cli-pager",
+    "build:clean-build-files": "rm -rf dist/",
+    "postbuild": "npm run build:upload-to-aws && npm run build:invalidate-cf-cache && npm run build:clean-build-files",
     "new-component": "new-component"
   },
   "browserslist": "> 0.5%, last 2 versions, not dead",

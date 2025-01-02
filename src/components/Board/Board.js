@@ -12,7 +12,7 @@ import { UserContext } from '../UserProvider';
 
 const ENDPOINT = process.env.REACT_APP_API_URL;
 
-function Board({ initialOrientation }) {
+function Board({ initialOrientation, boardId }) {
   const [validateMove, setValidateMove] = React.useState(true);
   const [playMoveSound] = useSound(moveSound);
   const [playCaptureSound] = useSound(captureSound);
@@ -115,7 +115,7 @@ function Board({ initialOrientation }) {
     <>
       <Div>
         <Chessboard
-          id='BasicBoard'
+          id={boardId}
           onPieceDrop={handlePieceDrop}
           position={positionFen}
           dropOffBoardAction='snapback'

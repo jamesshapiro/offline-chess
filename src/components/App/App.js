@@ -2,8 +2,8 @@ import Header from '../Header';
 import React from 'react';
 
 import DataProvider from '../DataProvider';
-import UserProvider from '../UserProvider';
 import WakeLocker from '../WakeLocker';
+import Board from '../Board';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
     <DataProvider>
       <div className='wrapper'>
         <WakeLocker />
-        <Header />
+        <Board />
       </div>
     </DataProvider>
     // </UserProvider>

@@ -11,40 +11,43 @@ import { motion, LayoutGroup } from 'framer-motion';
 
 function Body() {
   const { moveHistory } = React.useContext(DataContext);
-  const toMove = moveHistory.length % 2 === 0 ? 'white' : 'black';
-
-  const FirstBoardWrapperComponent =
-    toMove === 'white' ? ToMoveBoardWrapper : OffMoveBoardWrapper;
-  const SecondBoardWrapperComponent =
-    toMove === 'black' ? ToMoveBoardWrapper : OffMoveBoardWrapper;
+  var whiteToMove = moveHistory.length % 2 === 0;
 
   return (
     <Content>
-      <ToMoveWrapper>1.0.2</ToMoveWrapper>
-      <LayoutGroup>
-        <motion.div
-          initial={{ flex: 60 }}
-          layoutId='firstboard'
-          layout={true}
-          animate={{ flex: toMove === 'white' ? 70 : 60 }}
+      {/* <ToMoveWrapper>1.0.2</ToMoveWrapper> */}
+      <Wrapper2>
+        <BoardWrapper
+          layout
+          initial={{ flex: 70, marginTop: '0', opacity: 1 }}
+          animate={{
+            flex: whiteToMove ? 70 : 60,
+            marginTop: whiteToMove ? '0' : '50px',
+            opacity: whiteToMove ? 1.0 : 0.65,
+          }}
           transition={{ duration: 0.5 }}
+          flex={whiteToMove ? 70 : 60}
+          marginTop={whiteToMove ? '0' : '50px'}
+          opacity={whiteToMove ? 1.0 : 0.65}
         >
-          <FirstBoardWrapperComponent>
-            <Board boardId='1' initialOrientation='white' />
-          </FirstBoardWrapperComponent>
-        </motion.div>
-        <motion.div
-          initial={{ flex: 70 }}
-          layoutId='secondboard'
-          layout={true}
-          animate={{ flex: toMove === 'black' ? 70 : 60 }}
+          <Board boardId='1' initialOrientation='white' />
+        </BoardWrapper>
+        <BoardWrapper
+          layout
+          initial={{ flex: 60, marginTop: '50px', opacity: 0.65 }}
+          animate={{
+            flex: whiteToMove ? 60 : 70,
+            marginTop: whiteToMove ? '50px' : '0',
+            opacity: whiteToMove ? 0.65 : 1,
+          }}
           transition={{ duration: 0.5 }}
+          flex={whiteToMove ? 60 : 70}
+          marginTop={whiteToMove ? '50px' : '0'}
+          opacity={whiteToMove ? 0.65 : 1}
         >
-          <SecondBoardWrapperComponent>
-            <Board boardId='2' initialOrientation='black' />
-          </SecondBoardWrapperComponent>
-        </motion.div>
-      </LayoutGroup>
+          <Board boardId='2' initialOrientation='black' />
+        </BoardWrapper>
+      </Wrapper2>
 
       <MoveTableWrapper>
         <MoveTable />
@@ -57,23 +60,17 @@ const ToMoveWrapper = styled.span`
   color: white;
 `;
 
-const BoardWrapper = styled.div`
-  flex: 65;
-  background-color: #161512;
-  padding-top: 60px;
+const Wrapper2 = styled.div`
+  display: flex;
+  width: 100%;
 `;
 
-const OffMoveBoardWrapper = styled.div`
-  margin-top: 100px;
-  flex: 60;
+const BoardWrapper = styled(motion.div)`
+  flex: ${(props) => props.flex};
   background-color: #161512;
   padding-top: 60px;
-`;
-
-const ToMoveBoardWrapper = styled.div`
-  flex: 70;
-  background-color: #161512;
-  padding-top: 60px;
+  padding-left: 50px;
+  padding-right: 50px;
 `;
 
 const MoveTableWrapper = styled.div`

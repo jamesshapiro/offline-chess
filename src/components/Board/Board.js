@@ -20,6 +20,8 @@ function Board({ initialOrientation, boardId }) {
   const [triggerFirstMove, setTriggerFirstMove] = React.useState(0);
   const [plans, setPlans] = React.useState([]);
 
+  console.log('reloading');
+
   const {
     resetAll,
     notes,
@@ -122,8 +124,8 @@ function Board({ initialOrientation, boardId }) {
           boardOrientation={orientation}
           allowDragOutsideBoard={!validateMove}
         />
-        <Button onClick={resetBoard}>Reset</Button>
-        <Button onClick={flipBoard}>Flip</Button>
+        {/* <Button onClick={resetBoard}>Reset</Button>
+        <Button onClick={flipBoard}>Flip</Button> */}
       </Div>
     </>
   );
@@ -143,6 +145,5 @@ const Button = styled.button`
 `;
 
 const Div = styled.div`
-  margin-left: 2%;
-  width: 90%;
+  width: 99%;
 `;
